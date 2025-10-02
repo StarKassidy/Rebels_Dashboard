@@ -178,7 +178,7 @@ with tab2:
     # =========================
     # MAAND-BASED KPI'S
     # =========================
-    st.subheader("📅 Maandelijkse Doelstelling")
+    st.subheader("Maandelijkse Doelstelling")
 
     recdata["Maand"] = recdata["Begin datum"].dt.to_period("M")
     maand_labels = recdata["Maand"].dt.strftime("%B %Y").unique()
@@ -282,3 +282,4 @@ with tab2:
     ))
     funnel_fig.update_layout(title="Funnel: van contact tot aanname")
     st.plotly_chart(funnel_fig, use_container_width=True)
+
