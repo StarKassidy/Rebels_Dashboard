@@ -44,10 +44,10 @@ avg_qualification = filtered_data["Qualification"].mean()
 avg_response = filtered_data["Response rate"].mean()
 
 targets = {
-    "InMails": 100,
+    "InMails": 110,
     "Cold call": 120,
-    "Response rate": 0.2,
-    "Qualification": 15
+    "Response rate": 0.3,
+    "Qualification": 10
 }
 
 chart_title_prefix = "Voortgang Gemiddelde"
@@ -192,7 +192,7 @@ with tab2:
     maand_data = recdata[recdata["Maand"] == geselecteerde_maand]
     hires_per_recruiter = maand_data.groupby("Name")["Candidate employment"].sum().reset_index()
 
-    goal = 1
+    goal = 2
     recruiters_totaal = hires_per_recruiter["Name"].nunique()
     recruiters_gehaald = (hires_per_recruiter["Candidate employment"] >= goal).sum()
     percentage_gehaald = (recruiters_gehaald / recruiters_totaal * 100) if recruiters_totaal > 0 else 0
@@ -282,5 +282,6 @@ with tab2:
     ))
     funnel_fig.update_layout(title="Funnel: van contact tot aanname")
     st.plotly_chart(funnel_fig, use_container_width=True)
+
 
 
