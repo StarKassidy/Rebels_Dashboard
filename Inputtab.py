@@ -219,9 +219,9 @@ with tab2:
         y0=goal, y1=goal,
         line=dict(color="red", width=3, dash="dash")
     )
-    fig_goal.update_yaxes(title="Aantal aannames", range=[0, max(hires_per_recruiter["Candidate employment"].max(), goal) + 1])
+    fig_goal.update_yaxes(title="Aantal acceptaties", range=[0, max(hires_per_recruiter["Candidate employment"].max(), goal) + 1])
     fig_goal.update_layout(
-        title=f"Aannames per Recruiter in {geselecteerde_maand_label} (doel = {goal})",
+        title=f"Acceptaties per Recruiter in {geselecteerde_maand_label} (doel = {goal})",
         height=400,
         showlegend=False
     )
@@ -242,12 +242,12 @@ with tab2:
 
     kpi_col1, kpi_col2, kpi_col3, kpi_col4 = st.columns(4)
     kpi_col1.metric("Totale Introductions", totaal_introductions)
-    kpi_col2.metric("Aangenomen kandidaten", totaal_employment)
+    kpi_col2.metric("Geaccepteerde Kandidaten", totaal_employment)
     kpi_col3.metric("Conversie %", f"{conversie_percentage:.1f}%")
     kpi_col4.metric("Gem. Time to Hire (dagen)", f"{gem_tijd_tot_aannemen:.1f}" if pd.notna(gem_tijd_tot_aannemen) else "N/B")
 
     # Introductions vs Employment
-    st.subheader("Introductions vs. Aangenomen Kandidaten per Recruiter")
+    st.subheader("Introductions vs. Geaccepteerde Kandidaten per Recruiter")
     trend_fig = go.Figure()
     trend_fig.add_trace(go.Bar(
         x=filtered_data["Name"],
@@ -258,12 +258,12 @@ with tab2:
     trend_fig.add_trace(go.Bar(
         x=filtered_data["Name"],
         y=filtered_data["Candidate employment"],
-        name="Aangenomen kandidaten",
+        name="Geaccepteerde kandidaten",
         marker_color="#00CC96"
     ))
     trend_fig.update_layout(
         barmode='group',
-        title="Weekanalyse: Introductions en Aangenomen Kandidaten",
+        title="Weekanalyse: Introductions en Geaccepteerde Kandidaten",
         height=400
     )
     st.plotly_chart(trend_fig, use_container_width=True)
@@ -271,7 +271,7 @@ with tab2:
     # Funnel chart
     st.subheader("Wervingsfunnel (van activiteiten tot aanname)")
     funnel_fig = go.Figure(go.Funnel(
-        y=["InMails + Cold Calls", "Responses", "Introductions", "Aangenomen kandidaten"],
+        y=["InMails + Cold Calls", "Responses", "Introductions", "Geaccepteerde kandidaten"],
         x=[
             (filtered_data["InMails"].sum() + filtered_data["Cold call"].sum()),
             filtered_data["Responses (accepted or declined)"].sum(),
@@ -282,4 +282,5 @@ with tab2:
     ))
     funnel_fig.update_layout(title="Funnel: van contact tot aanname")
     st.plotly_chart(funnel_fig, use_container_width=True)
+
 
